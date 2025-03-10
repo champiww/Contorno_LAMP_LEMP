@@ -5,9 +5,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      ./prestashop_8.2.1:/app
-      ./apache-php-lamp/vhost-apache.conf:/etc/apache2/sites-enabled/vhost-apache.conf
-      ./certs.dev:/certs
+      - ./prestashop_8.2.1:/app
+      - ./apache-php-lamp/vhost-apache.conf:/etc/apache2/sites-enabled/vhost-apache.conf
+      - ./certs.dev:/certs
       #php.ini
     networks:
       redelamplemp:
@@ -17,7 +17,7 @@ services:
   basededatos:
     image: mysql:latest
     env_file:
-      - .env_bd
+      - .env.dev
     volumes:
       - datos:/var/lib/mysql
     networks:

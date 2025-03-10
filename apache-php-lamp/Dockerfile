@@ -1,15 +1,19 @@
 FROM ubuntu:22.04
 
 #Instalar paquetes necesarios (apache php extensions php)
-RUN apt update && apt install -y \
-    apt install -y apache2 libapache2-mod-php8.1 \ 
-    php8.1-mysql php-xml php-gd  php-json php-curl php-mbstring && \
+RUN apt update && \
+    DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC \
+    apt install -y \
+    apache2 libapache2-mod-php8.1 \
     curl \
     wget \
     git \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
-RUN RUN ln -sf /dev/stderr /var/log/apache2/error.log
+RUN apt update && \ 
+    apt install -y php8.1-mysql php-xml php-gd  php-json php-curl php-mbstring
+
+RUN ln -sf /dev/stderr /var/log/apache2/error.log
 
 #Instalar composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
